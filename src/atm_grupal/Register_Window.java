@@ -7,7 +7,7 @@ package atm_grupal;
 
 /**
  *
- * @author Prueba prueba
+ * @author Prueba prueba otra prueba
  */
 public class Register_Window extends javax.swing.JFrame {
 
