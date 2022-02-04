@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4deb2
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost:3306
--- Tiempo de generación: 04-02-2022 a las 08:50:56
--- Versión del servidor: 10.5.12-MariaDB-0+deb11u1
--- Versión de PHP: 7.4.25
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 04-02-2022 a las 11:24:55
+-- Versión del servidor: 10.4.22-MariaDB
+-- Versión de PHP: 7.4.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -31,13 +31,23 @@ CREATE TABLE `clientes` (
   `ID` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `apellidos` varchar(100) NOT NULL,
-  `edad` int(3) NOT NULL,
+  `f_nacimiento` date NOT NULL,
   `dni` varchar(9) NOT NULL,
   `direccion` varchar(100) NOT NULL,
   `poblacion` varchar(100) NOT NULL,
   `usuario` varchar(45) DEFAULT NULL,
   `contrasena` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `clientes`
+--
+
+INSERT INTO `clientes` (`ID`, `nombre`, `apellidos`, `f_nacimiento`, `dni`, `direccion`, `poblacion`, `usuario`, `contrasena`) VALUES
+(1, 'youssef', 'rahou', '0000-00-00', 'x75845934', 'calle mayor, 65', 'manacor', 'youssef', '12345678'),
+(2, 'aaaaaa', 'aaaaaa', '0000-00-00', 'aaaaaa', 'aaaaaa', 'aaaaaa', 'aaaaaa', 'aaaaaa'),
+(3, 'ino', 'nion', '0000-00-00', 'oi', 'nio', 'io', 'i', 'i'),
+(4, 'inomk', 'oimk', '0000-00-00', 'niom', 'nom', 'nom', 'om,l´ñ.k', 'om,l´ñ.k');
 
 -- --------------------------------------------------------
 
@@ -140,7 +150,7 @@ ALTER TABLE `transacciones`
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `conexiones`
