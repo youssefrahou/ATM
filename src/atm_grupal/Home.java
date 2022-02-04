@@ -53,6 +53,11 @@ public class Home extends javax.swing.JFrame {
         ExtraerButton = new javax.swing.JButton();
         AñadirButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        imagenenviar = new javax.swing.JLabel();
+        Imagenextraer = new javax.swing.JLabel();
+        imagenañadir = new javax.swing.JLabel();
+        iconbalance = new javax.swing.JLabel();
+        Imagenmanos = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -60,7 +65,7 @@ public class Home extends javax.swing.JFrame {
 
         BalanceLabel.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         BalanceLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        BalanceLabel.setText("Balance: ");
+        BalanceLabel.setText("Balance:");
         BalanceLabel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         ExitButton.setBackground(new java.awt.Color(255, 204, 204));
@@ -74,7 +79,7 @@ public class Home extends javax.swing.JFrame {
         });
 
         CerrarSesionButton.setBackground(new java.awt.Color(255, 204, 204));
-        CerrarSesionButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm_grupal/Retroceder.png"))); // NOI18N
+        CerrarSesionButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm_grupal/icons8-salida-30.png"))); // NOI18N
         CerrarSesionButton.setToolTipText("Salir");
         CerrarSesionButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         CerrarSesionButton.addActionListener(new java.awt.event.ActionListener() {
@@ -105,23 +110,44 @@ public class Home extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(TransaccionesTable);
 
-        EnviarButton.setText("Enviar Dinero");
-        EnviarButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EnviarButtonActionPerformed(evt);
-            }
-        });
+        EnviarButton.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        EnviarButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm_grupal/icons8-euro-30.png"))); // NOI18N
+        EnviarButton.setText("Enviar");
+        EnviarButton.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
-        ExtraerButton.setText("Extraer Dinero");
+        ExtraerButton.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        ExtraerButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm_grupal/icons8-euro-30.png"))); // NOI18N
+        ExtraerButton.setText("Extraer");
+        ExtraerButton.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
-        AñadirButton.setText("Añadir Dinero");
+        AñadirButton.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        AñadirButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm_grupal/icons8-euro-30.png"))); // NOI18N
+        AñadirButton.setText("Añadir");
+        AñadirButton.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm_grupal/icons8-historia-de-la-actividad-30.png"))); // NOI18N
         jLabel1.setText("Historial de Transacciones");
+
+        imagenenviar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm_grupal/icons8-money-30.png"))); // NOI18N
+
+        Imagenextraer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm_grupal/icons8-money-30_2.png"))); // NOI18N
+
+        imagenañadir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm_grupal/icons8-money-30_1.png"))); // NOI18N
+
+        iconbalance.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm_grupal/icons8-balance-30.png"))); // NOI18N
+
+        Imagenmanos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm_grupal/icons8-apreton-de-manos-corazon-30.png"))); // NOI18N
 
         javax.swing.GroupLayout MainPanelLayout = new javax.swing.GroupLayout(MainPanel);
         MainPanel.setLayout(MainPanelLayout);
         MainPanelLayout.setHorizontalGroup(
             MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(iconbalance)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(BalanceLabel)
+                .addGap(168, 168, 168))
             .addGroup(MainPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,50 +157,63 @@ public class Home extends javax.swing.JFrame {
                         .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1)
                     .addGroup(MainPanelLayout.createSequentialGroup()
-                        .addComponent(EnviarButton)
+                        .addComponent(imagenenviar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ExtraerButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(AñadirButton)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainPanelLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(BalanceLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(MainPanelLayout.createSequentialGroup()
+                                .addComponent(EnviarButton)
+                                .addGap(45, 45, 45)
+                                .addComponent(Imagenextraer)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(ExtraerButton)
+                                .addGap(43, 43, 43)
+                                .addComponent(imagenañadir)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(AñadirButton))
+                            .addGroup(MainPanelLayout.createSequentialGroup()
+                                .addComponent(BienvenidoLabel)
+                                .addGap(18, 18, 18)
+                                .addComponent(Imagenmanos)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(MainPanelLayout.createSequentialGroup()
+                .addGap(353, 353, 353)
                 .addComponent(jLabel1)
-                .addGap(367, 367, 367))
-            .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(MainPanelLayout.createSequentialGroup()
-                    .addGap(20, 20, 20)
-                    .addComponent(BienvenidoLabel)
-                    .addContainerGap(317, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         MainPanelLayout.setVerticalGroup(
             MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MainPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(ExitButton, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
-                    .addComponent(CerrarSesionButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(96, 96, 96)
-                .addComponent(BalanceLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(MainPanelLayout.createSequentialGroup()
+                        .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(ExitButton, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                            .addComponent(CerrarSesionButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(BienvenidoLabel))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainPanelLayout.createSequentialGroup()
+                        .addComponent(Imagenmanos, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainPanelLayout.createSequentialGroup()
+                        .addComponent(iconbalance)
+                        .addGap(8, 8, 8))
+                    .addComponent(BalanceLabel))
+                .addGap(25, 25, 25)
                 .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(EnviarButton)
                     .addComponent(ExtraerButton)
-                    .addComponent(AñadirButton))
-                .addGap(33, 33, 33)
+                    .addComponent(AñadirButton)
+                    .addComponent(Imagenextraer, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(imagenañadir, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(imagenenviar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
-            .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(MainPanelLayout.createSequentialGroup()
-                    .addGap(73, 73, 73)
-                    .addComponent(BienvenidoLabel)
-                    .addContainerGap(472, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -198,10 +237,6 @@ public class Home extends javax.swing.JFrame {
     private void ExitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitButtonActionPerformed
         System.exit(0);
     }//GEN-LAST:event_ExitButtonActionPerformed
-
-    private void EnviarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnviarButtonActionPerformed
-        
-    }//GEN-LAST:event_EnviarButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -247,8 +282,13 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JButton EnviarButton;
     private javax.swing.JButton ExitButton;
     private javax.swing.JButton ExtraerButton;
+    private javax.swing.JLabel Imagenextraer;
+    private javax.swing.JLabel Imagenmanos;
     private javax.swing.JPanel MainPanel;
     private javax.swing.JTable TransaccionesTable;
+    private javax.swing.JLabel iconbalance;
+    private javax.swing.JLabel imagenañadir;
+    private javax.swing.JLabel imagenenviar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
