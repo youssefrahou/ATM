@@ -1,3 +1,4 @@
-build/*
-build/classes/atm_grupal/*
+build/* -f
+build/classes/atm_grupal/* -f
+LIBRERIAS/mysql-connector-java-5.1.45-bin.jar
 LIBRERIAS/mysql-connector-java-5.1.45-bin.jar
