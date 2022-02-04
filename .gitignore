@@ -1,1 +1,2 @@
-build
+build/*
+build/classes/atm_grupal/*
