@@ -30,7 +30,7 @@ public class Login_Window extends javax.swing.JFrame {
         initComponents();
 
         setLocationRelativeTo(null);
-        iniciarSesion("youssef", "12345678");
+        //iniciarSesion("youssef", "12345678");
     }
 
     /**
@@ -276,9 +276,7 @@ public class Login_Window extends javax.swing.JFrame {
             System.out.println(query);
             rs = st.executeQuery(query);
             while (rs.next()) {
-
                 System.out.println(rs.getString("nombre"));
-
             } 
         } catch (Exception e) {
             System.out.println(e.getMessage());
