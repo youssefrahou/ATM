@@ -5,11 +5,26 @@
  */
 package atm_grupal;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Prueba prueba otra prueba
  */
 public class Register_Window extends javax.swing.JFrame {
+
+    static Register_Window register;
+    //String fnamez;
+    //int balancz;
+    //int operation;
+    Connection con;
+    ResultSet rs;
+    Statement st;
 
     /**
      * Creates new form Register_Window
@@ -36,7 +51,7 @@ public class Register_Window extends javax.swing.JFrame {
         jTextFieldFecha = new javax.swing.JTextField();
         jTextFieldDireccion = new javax.swing.JTextField();
         jTextFieldCP = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
+        jTextFieldEmail = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -44,7 +59,6 @@ public class Register_Window extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -53,6 +67,7 @@ public class Register_Window extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
+        jPasswordFieldContrasenaRegistro = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -88,6 +103,12 @@ public class Register_Window extends javax.swing.JFrame {
             }
         });
 
+        jTextFieldDNI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldDNIActionPerformed(evt);
+            }
+        });
+
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Nombre y Apellidos");
 
@@ -110,7 +131,12 @@ public class Register_Window extends javax.swing.JFrame {
         jLabel7.setText("Contraseña");
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm_grupal/Aceptar.png"))); // NOI18N
-        jButton1.setText("Aceptar");
+        jButton1.setText("Registro");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm_grupal/User.png"))); // NOI18N
 
@@ -142,41 +168,40 @@ public class Register_Window extends javax.swing.JFrame {
                                 .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainPanelLayout.createSequentialGroup()
-                        .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addGap(259, 259, 259))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainPanelLayout.createSequentialGroup()
+                        .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(MainPanelLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jButton1))
-                            .addGroup(MainPanelLayout.createSequentialGroup()
+                                .addGap(184, 184, 184)
                                 .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(MainPanelLayout.createSequentialGroup()
-                                        .addGap(184, 184, 184)
-                                        .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(jLabel8)
-                                                .addComponent(jLabel9))
-                                            .addComponent(jLabel10)))
-                                    .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel7))
-                                .addGap(18, 18, Short.MAX_VALUE)
-                                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField7)
-                                    .addComponent(jTextFieldDNI, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
-                                    .addComponent(jTextFieldNombre)
-                                    .addComponent(jTextFieldFecha)
-                                    .addComponent(jTextFieldDireccion)
-                                    .addComponent(jTextFieldCP)
-                                    .addComponent(jTextField6))))
+                                    .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel8)
+                                        .addComponent(jLabel9))
+                                    .addComponent(jLabel10)))
+                            .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7))
+                        .addGap(18, 18, Short.MAX_VALUE)
+                        .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextFieldDNI, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+                            .addComponent(jTextFieldNombre)
+                            .addComponent(jTextFieldFecha)
+                            .addComponent(jTextFieldDireccion)
+                            .addComponent(jTextFieldCP)
+                            .addComponent(jTextFieldEmail)
+                            .addComponent(jPasswordFieldContrasenaRegistro))
                         .addGap(259, 259, 259))))
         );
         MainPanelLayout.setVerticalGroup(
@@ -217,19 +242,19 @@ public class Register_Window extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel13))
+                    .addComponent(jLabel13)
+                    .addComponent(jTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
-                    .addComponent(jLabel14))
-                .addGap(44, 44, 44)
+                    .addComponent(jLabel14)
+                    .addComponent(jPasswordFieldContrasenaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(46, 46, 46)
                 .addComponent(jButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        MainPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jTextField6, jTextField7, jTextFieldCP, jTextFieldDireccion, jTextFieldFecha});
+        MainPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jTextFieldCP, jTextFieldDireccion, jTextFieldFecha});
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -250,12 +275,37 @@ public class Register_Window extends javax.swing.JFrame {
     }//GEN-LAST:event_ExitButtonActionPerformed
 
     private void ReturnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReturnButtonActionPerformed
-        
+
     }//GEN-LAST:event_ReturnButtonActionPerformed
 
     private void jTextFieldNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldNombreActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        //datos de la persona
+        String nombre = jTextFieldNombre.getText();
+        String dni = jTextFieldDNI.getText();
+        String fecha = jTextFieldFecha.getText();
+        String direccion = jTextFieldDireccion.getText();
+        String cp = jTextFieldCP.getText();
+        String email = jTextFieldEmail.getText();
+        String contrasena = String.valueOf(jPasswordFieldContrasenaRegistro.getPassword());
+
+        boolean registrado = registrar(nombre, dni, fecha, direccion, cp, email, contrasena);
+
+        if (registrado == false) {
+            JOptionPane.showMessageDialog(null, "No se ha registrado pinche pendejo", "Error al registrar", JOptionPane.ERROR_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Vienbenido", "BIEN al registrar", JOptionPane.INFORMATION_MESSAGE);
+        }
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextFieldDNIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDNIActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldDNIActionPerformed
 
     /**
      * @param args the command line arguments
@@ -312,12 +362,42 @@ public class Register_Window extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
+    private javax.swing.JPasswordField jPasswordFieldContrasenaRegistro;
     private javax.swing.JTextField jTextFieldCP;
     private javax.swing.JTextField jTextFieldDNI;
     private javax.swing.JTextField jTextFieldDireccion;
+    private javax.swing.JTextField jTextFieldEmail;
     private javax.swing.JTextField jTextFieldFecha;
     private javax.swing.JTextField jTextFieldNombre;
     // End of variables declaration//GEN-END:variables
+
+    private boolean registrar(String nombre, String dni, String fecha, String direccion, String cp, String email, String contrasena) {
+
+        System.out.println("usuario ");
+        //INSERT INTO `clientes` (`ID`, `nombre`, `apellidos`, `edad`, `dni`, `direccion`, `poblacion`, `usuario`, `contrasena`) VALUES (NULL, 'aaaaaa', 'aaaaaa', '23', 'aaaaaa', 'aaaaaa', 'aaaaaa', 'aaaaaa', 'aaaaaa');
+
+        //aqui nos registramos
+        try {
+
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/atm", "root", "");
+
+            PreparedStatement update = con.prepareStatement("INSERT INTO `clientes` (`ID`, `nombre`, `apellidos`, `edad`, `dni`, `direccion`, `poblacion`, `usuario`, `contrasena`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?)");
+            update.setString(1, nombre);
+            update.setString(2, dni);
+            update.setString(3, fecha);
+            update.setString(4, direccion);
+            update.setString(5, cp);
+            update.setString(6, email);
+            update.setString(7, contrasena);
+            update.setString(8, contrasena);
+
+            update.executeUpdate();
+            return true;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return false;
+    }
 }
