@@ -5,6 +5,11 @@
  */
 package atm_grupal;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
 /**
  *
  * @author Admin
@@ -14,10 +19,18 @@ public class Login_Window extends javax.swing.JFrame {
     /**
      * Creates new form Login_Window
      */
+    String fnamez;
+    int balancz;
+    int operation;
+    Connection con;
+    ResultSet rs;
+    Statement st;
+
     public Login_Window() {
         initComponents();
-        
+
         setLocationRelativeTo(null);
+        iniciarSesion("fe", "fr");
     }
 
     /**
@@ -190,16 +203,16 @@ public class Login_Window extends javax.swing.JFrame {
     }//GEN-LAST:event_ExitButtonActionPerformed
 
     private void RegisterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterButtonActionPerformed
-        
+
     }//GEN-LAST:event_RegisterButtonActionPerformed
 
     private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtonActionPerformed
-        
+
         //aquí llamamos al método para iniciar sesión
         String usuario = "youssef";
         String contrasenya = "12345678";
         iniciarSesion(usuario, contrasenya);
-        
+
     }//GEN-LAST:event_LoginButtonActionPerformed
 
     /**
@@ -254,9 +267,21 @@ public class Login_Window extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void iniciarSesion(String usuario, String contrasenya) {
-        
+
         //aqui iniciamos sesión
-        
-        
+        try {
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/atm", "root", "");
+            st = con.createStatement();
+            String query = "SELECT * FROM clientes";
+            rs = st.executeQuery(query);
+            while (rs.next()) {
+
+                System.out.println(rs.getString("nombre"));
+
+            } 
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 }
