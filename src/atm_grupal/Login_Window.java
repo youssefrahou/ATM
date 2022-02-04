@@ -22,9 +22,10 @@ public class Login_Window extends javax.swing.JFrame {
     /**
      * Creates new form Login_Window
      */
-    String fnamez;
-    int balancz;
-    int operation;
+    static Login_Window login;
+    //String fnamez;
+    //int balancz;
+    //int operation;
     Connection con;
     ResultSet rs;
     Statement st;
@@ -206,6 +207,13 @@ public class Login_Window extends javax.swing.JFrame {
 
     private void RegisterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterButtonActionPerformed
 
+        // instanciamos un objeto de la clase Register_Window.java
+        Register_Window registro = new Register_Window();
+
+        //hacemos visible el formulario  
+        registro.setVisible(true);
+        
+        login.setVisible(false);
     }//GEN-LAST:event_RegisterButtonActionPerformed
 
     private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtonActionPerformed
@@ -218,7 +226,7 @@ public class Login_Window extends javax.swing.JFrame {
         if (nombre == "") {
             JOptionPane.showMessageDialog(null, "El usuario o la contraseña son incorrectos", "Error al iniciar sesión", JOptionPane.ERROR_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(null, "Hola " + nombre, "BIEN al iniciar sesión", JOptionPane.INFORMATION_MESSAGE );
+            JOptionPane.showMessageDialog(null, "Hola " + nombre, "BIEN al iniciar sesión", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_LoginButtonActionPerformed
 
@@ -253,7 +261,8 @@ public class Login_Window extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new Login_Window().setVisible(true);
+                login = new Login_Window();
+                login.setVisible(true);
             }
         });
     }
