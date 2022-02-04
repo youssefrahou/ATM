@@ -5,6 +5,7 @@
  */
 package atm_grupal;
 
+import static atm_grupal.Login_Window.login;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -19,6 +20,7 @@ import javax.swing.JOptionPane;
 public class Register_Window extends javax.swing.JFrame {
 
     static Register_Window register;
+    
     //String fnamez;
     //int balancz;
     //int operation;
@@ -328,6 +330,17 @@ public class Register_Window extends javax.swing.JFrame {
 
     private void ReturnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReturnButtonActionPerformed
 
+        // instanciamos un objeto de la clase Register_Window.java
+        Login_Window login = new Login_Window();
+
+        //hacemos visible el formulario  
+        login.setVisible(true);
+        
+        try {
+            register.setVisible(false);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }//GEN-LAST:event_ReturnButtonActionPerformed
 
     private void ExitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitButtonActionPerformed
@@ -368,7 +381,8 @@ public class Register_Window extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Register_Window().setVisible(true);
+                register = new Register_Window();
+                register.setVisible(true);
             }
         });
     }

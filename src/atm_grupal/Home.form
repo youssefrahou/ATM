@@ -119,13 +119,13 @@
                       <Component id="BalanceLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="EnviarButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="ExtraerButton" alignment="1" min="-2" max="-2" attributes="0"/>
                       <Component id="AñadirButton" alignment="1" min="-2" max="-2" attributes="0"/>
                       <Component id="Imagenextraer" alignment="1" min="-2" pref="39" max="-2" attributes="0"/>
                       <Component id="imagenañadir" alignment="0" min="-2" pref="39" max="-2" attributes="0"/>
                       <Component id="imagenenviar" alignment="1" min="-2" pref="39" max="-2" attributes="0"/>
+                      <Component id="EnviarButton" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
@@ -195,7 +195,7 @@
               <Font name="Tahoma" size="48" style="1"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="BIENVENIDO, Pepona"/>
+            <Property name="text" type="java.lang.String" value="BIENVENIDO"/>
           </Properties>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane1">

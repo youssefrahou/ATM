@@ -25,12 +25,15 @@ public class Home extends javax.swing.JFrame {
     Connection con;
     ResultSet rs;
     Statement st;
+    String nombre;
 
     /**
      * Creates new form Register_Window
      */
-    public Home() {
+    public Home(String nombre) {
+        this.nombre = nombre;
         initComponents();
+        BienvenidoLabel.setText(BienvenidoLabel.getText() + ", " + nombre);
     }
 
     /**
@@ -90,7 +93,7 @@ public class Home extends javax.swing.JFrame {
 
         BienvenidoLabel.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
         BienvenidoLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        BienvenidoLabel.setText("BIENVENIDO, Pepona");
+        BienvenidoLabel.setText("BIENVENIDO");
 
         TransaccionesTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -202,13 +205,13 @@ public class Home extends javax.swing.JFrame {
                         .addGap(8, 8, 8))
                     .addComponent(BalanceLabel))
                 .addGap(25, 25, 25)
-                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(EnviarButton)
-                    .addComponent(ExtraerButton)
-                    .addComponent(AñadirButton)
-                    .addComponent(Imagenextraer, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ExtraerButton, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(AñadirButton, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Imagenextraer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(imagenañadir, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(imagenenviar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(imagenenviar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(EnviarButton))
                 .addGap(30, 30, 30)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -269,7 +272,7 @@ public class Home extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Home().setVisible(true);
+                //new Home().setVisible(true);
             }
         });
     }
