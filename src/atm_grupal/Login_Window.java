@@ -5,10 +5,13 @@
  */
 package atm_grupal;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -209,10 +212,16 @@ public class Login_Window extends javax.swing.JFrame {
     private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtonActionPerformed
 
         //aquí llamamos al método para iniciar sesión
-        String usuario = "youssef";
-        String contrasenya = "12345678";
-        iniciarSesion(usuario, contrasenya);
+        String usuario = jTextFieldUser.getText();
+        String contrasenya = jTextFieldPassword.getText();
+        String nombre = iniciarSesion(usuario, contrasenya);
 
+        if (nombre == "") {
+            JOptionPane.showMessageDialog(null, "El usuario o la contraseña son incorrectos", "Error al iniciar sesión", JOptionPane.ERROR_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Hola " + nombre, "BIEN al iniciar sesión", JOptionPane.INFORMATION_MESSAGE );
+
+        }
     }//GEN-LAST:event_LoginButtonActionPerformed
 
     /**
@@ -266,21 +275,26 @@ public class Login_Window extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldUser;
     // End of variables declaration//GEN-END:variables
 
-    private void iniciarSesion(String usuario, String contrasenya) {
-
+    private String iniciarSesion(String usuario, String contrasenya) {
+        System.out.println("usuario " + usuario + " contraseña: " + contrasenya);
         //aqui iniciamos sesión
         try {
+            String nombre = "";
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/atm", "root", "");
             st = con.createStatement();
             String query = "SELECT * FROM clientes where usuario = \"" + usuario + "\" and contrasena = \"" + contrasenya + "\"";
             System.out.println(query);
             rs = st.executeQuery(query);
             while (rs.next()) {
-                System.out.println(rs.getString("nombre"));
-            } 
+                nombre = rs.getString("nombre");
+                if (nombre != "") {
+                    return nombre;
+                }
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
+        return "";
     }
+
 }
