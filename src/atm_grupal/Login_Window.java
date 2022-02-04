@@ -195,6 +195,11 @@ public class Login_Window extends javax.swing.JFrame {
 
     private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtonActionPerformed
         
+        //aquí llamamos al método para iniciar sesión
+        String usuario = "youssef";
+        String contrasenya = "12345678";
+        iniciarSesion(usuario, contrasenya);
+        
     }//GEN-LAST:event_LoginButtonActionPerformed
 
     /**
@@ -247,4 +252,11 @@ public class Login_Window extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldPassword;
     private javax.swing.JTextField jTextFieldUser;
     // End of variables declaration//GEN-END:variables
+
+    private void iniciarSesion(String usuario, String contrasenya) {
+        
+        //aqui iniciamos sesión
+        
+        
+    }
 }
