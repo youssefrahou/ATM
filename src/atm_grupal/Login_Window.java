@@ -210,10 +210,12 @@ public class Login_Window extends javax.swing.JFrame {
         // instanciamos un objeto de la clase Register_Window.java
         Register_Window registro = new Register_Window();
 
+        login.setVisible(false);
+        
         //hacemos visible el formulario  
         registro.setVisible(true);
         
-        login.setVisible(false);
+        
     }//GEN-LAST:event_RegisterButtonActionPerformed
 
     private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtonActionPerformed

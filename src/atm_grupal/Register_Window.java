@@ -69,7 +69,7 @@ public class Register_Window extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jPasswordFieldContrasenaRegistro = new javax.swing.JPasswordField();
         jLabel15 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jTextFieldApellidos = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -158,9 +158,9 @@ public class Register_Window extends javax.swing.JFrame {
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel15.setText("Apellidos");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldApellidos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                jTextFieldApellidosActionPerformed(evt);
             }
         });
 
@@ -215,7 +215,7 @@ public class Register_Window extends javax.swing.JFrame {
                             .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(MainPanelLayout.createSequentialGroup()
                                 .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextFieldApellidos, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jTextFieldDNI, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
                                     .addComponent(jTextFieldFecha, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jTextFieldDireccion, javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,7 +243,7 @@ public class Register_Window extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel16))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -300,14 +300,16 @@ public class Register_Window extends javax.swing.JFrame {
         // TODO add your handling code here:
         //datos de la persona
         String nombre = jTextFieldNombre.getText();
+        String apellidos = jTextFieldApellidos.getText();
+
         String dni = jTextFieldDNI.getText();
         String fecha = jTextFieldFecha.getText();
         String direccion = jTextFieldDireccion.getText();
         String cp = jTextFieldCP.getText();
         String email = jTextFieldEmail.getText();
         String contrasena = String.valueOf(jPasswordFieldContrasenaRegistro.getPassword());
-
-        boolean registrado = registrar(nombre, dni, fecha, direccion, cp, email, contrasena);
+//`ID`, `nombre`, `apellidos`, `f_nacimiento`, `dni`, `direccion`, `poblacion`, `usuario`, `contrasena`) VALUES (NU
+        boolean registrado = registrar(nombre, apellidos, dni, fecha, direccion, cp, email, contrasena);
 
         if (registrado == false) {
             JOptionPane.showMessageDialog(null, "No se ha registrado pinche pendejo", "Error al registrar", JOptionPane.ERROR_MESSAGE);
@@ -332,9 +334,9 @@ public class Register_Window extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_ExitButtonActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void jTextFieldApellidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldApellidosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_jTextFieldApellidosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -394,7 +396,7 @@ public class Register_Window extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPasswordField jPasswordFieldContrasenaRegistro;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextFieldApellidos;
     private javax.swing.JTextField jTextFieldCP;
     private javax.swing.JTextField jTextFieldDNI;
     private javax.swing.JTextField jTextFieldDireccion;
@@ -403,7 +405,7 @@ public class Register_Window extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldNombre;
     // End of variables declaration//GEN-END:variables
 
-    private boolean registrar(String nombre, String dni, String fecha, String direccion, String cp, String email, String contrasena) {
+    private boolean registrar(String nombre, String apellidos, String dni, String fecha, String direccion, String cp, String email, String contrasena) {
 
         System.out.println("usuario ");
         //INSERT INTO `clientes` (`ID`, `nombre`, `apellidos`, `edad`, `dni`, `direccion`, `poblacion`, `usuario`, `contrasena`) VALUES (NULL, 'aaaaaa', 'aaaaaa', '23', 'aaaaaa', 'aaaaaa', 'aaaaaa', 'aaaaaa', 'aaaaaa');
@@ -412,18 +414,19 @@ public class Register_Window extends javax.swing.JFrame {
         try {
 
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/atm", "root", "");
-
-            PreparedStatement update = con.prepareStatement("INSERT INTO `clientes` (`ID`, `nombre`, `apellidos`, `edad`, `dni`, `direccion`, `poblacion`, `usuario`, `contrasena`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?)");
+//`ID`, `nombre`, `apellidos`, `f_nacimiento`, `dni`, `direccion`, `poblacion`, `usuario`, `contrasena`) VALUES (NU
+            PreparedStatement update = con.prepareStatement("INSERT INTO `clientes` (`nombre`, `apellidos`, `f_nacimiento`, `dni`, `direccion`, `poblacion`, `usuario`, `contrasena`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
             update.setString(1, nombre);
-            update.setString(2, dni);
+            update.setString(2, apellidos);
             update.setString(3, fecha);
-            update.setString(4, direccion);
-            update.setString(5, cp);
-            update.setString(6, email);
-            update.setString(7, contrasena);
+            update.setString(4, dni);
+            update.setString(5, direccion);
+            update.setString(6, cp);
+            update.setString(7, email);
             update.setString(8, contrasena);
 
             update.executeUpdate();
+            
             return true;
 
         } catch (Exception e) {
