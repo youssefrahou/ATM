@@ -30,7 +30,7 @@ public class Login_Window extends javax.swing.JFrame {
         initComponents();
 
         setLocationRelativeTo(null);
-        iniciarSesion("fe", "fr");
+        iniciarSesion("youssef", "12345678");
     }
 
     /**
@@ -272,7 +272,8 @@ public class Login_Window extends javax.swing.JFrame {
         try {
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/atm", "root", "");
             st = con.createStatement();
-            String query = "SELECT * FROM clientes";
+            String query = "SELECT * FROM clientes where usuario = \"" + usuario + "\" and contrasena = \"" + contrasenya + "\"";
+            System.out.println(query);
             rs = st.executeQuery(query);
             while (rs.next()) {
 
