@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Random;
 import javax.swing.JOptionPane;
 
 /**
@@ -336,7 +337,7 @@ public class Register_Window extends javax.swing.JFrame {
 
         //hacemos visible el formulario  
         login.setVisible(true);
-        
+
         try {
             register.setVisible(false);
         } catch (Exception e) {
@@ -437,24 +438,39 @@ public class Register_Window extends javax.swing.JFrame {
             update.setString(8, contrasena);
 
             update.executeUpdate();
-            
-            String iban = "ES34 345 345 345 53";
+
+            //con = DriverManager.getConnection("jdbc:mysql://localhost:3306/atm", "root", "");
+            st = con.createStatement();
+            String query = "SELECT * FROM `clientes` ORDER BY ID DESC LIMIT 1";
+            System.out.println(query);
+            rs = st.executeQuery(query);
+            while (rs.next()) {
+                id_cliente = rs.getInt("id");
+            }
+
+            String iban = "ES";
+            Random r = new Random();
+            for (int i = 0; i < 22; i++) {
+                int num = r.nextInt(10);
+                iban += String.valueOf(num);
+            }
+            //System.out.println(iban);
+
             int cantidad = 0;
-            
+           // id_cliente = 12;
             PreparedStatement balance = con.prepareStatement("INSERT INTO `cuentas_corrientes` (`id`, `iban`, `balance`, `id_cliente`) VALUES (NULL, ?, ?, ?);");
             balance.setString(1, iban);
             balance.setInt(2, cantidad);
             balance.setInt(3, id_cliente);
 
             balance.executeUpdate();
-            
+
             return true;
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
-        
         return false;
     }
 }
