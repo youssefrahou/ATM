@@ -135,6 +135,7 @@ public class Register_Window extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel7.setText("Contraseña");
 
+        jButton1.setBackground(new java.awt.Color(255, 204, 204));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm_grupal/Aceptar.png"))); // NOI18N
         jButton1.setText("Registro");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
