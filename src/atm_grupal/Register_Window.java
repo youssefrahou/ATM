@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
 public class Register_Window extends javax.swing.JFrame {
 
     static Register_Window register;
-    
+    int id_cliente;
     //String fnamez;
     //int balancz;
     //int operation;
@@ -316,7 +316,7 @@ public class Register_Window extends javax.swing.JFrame {
         if (registrado == false) {
             JOptionPane.showMessageDialog(null, "No se ha registrado pinche pendejo", "Error al registrar", JOptionPane.ERROR_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(null, "Vienbenido", "BIEN al registrar", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Bienvenido", "Se ha registrado correctamente", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -421,14 +421,10 @@ public class Register_Window extends javax.swing.JFrame {
 
     private boolean registrar(String nombre, String apellidos, String dni, String fecha, String direccion, String cp, String email, String contrasena) {
 
-        System.out.println("usuario ");
-        //INSERT INTO `clientes` (`ID`, `nombre`, `apellidos`, `edad`, `dni`, `direccion`, `poblacion`, `usuario`, `contrasena`) VALUES (NULL, 'aaaaaa', 'aaaaaa', '23', 'aaaaaa', 'aaaaaa', 'aaaaaa', 'aaaaaa', 'aaaaaa');
-
         //aqui nos registramos
         try {
 
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/atm", "root", "");
-//`ID`, `nombre`, `apellidos`, `f_nacimiento`, `dni`, `direccion`, `poblacion`, `usuario`, `contrasena`) VALUES (NU
             PreparedStatement update = con.prepareStatement("INSERT INTO `clientes` (`nombre`, `apellidos`, `f_nacimiento`, `dni`, `direccion`, `poblacion`, `usuario`, `contrasena`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
             update.setString(1, nombre);
             update.setString(2, apellidos);
@@ -441,12 +437,23 @@ public class Register_Window extends javax.swing.JFrame {
 
             update.executeUpdate();
             
+            String iban = "ES34 345 345 345 53";
+            int cantidad = 0;
+            
+            PreparedStatement balance = con.prepareStatement("INSERT INTO `cuentas_corrientes` (`id`, `iban`, `balance`, `id_cliente`) VALUES (NULL, ?, ?, ?);");
+            balance.setString(1, iban);
+            balance.setInt(2, cantidad);
+            balance.setInt(3, id_cliente);
+
+            balance.executeUpdate();
+            
             return true;
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
+        
         return false;
     }
 }
