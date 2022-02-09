@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package atm_grupal;
+
+import java.util.Random;
+
 /**
  *
  * @author Admin
@@ -15,9 +18,7 @@ public class Loading_Window extends javax.swing.JFrame {
      */
     public Loading_Window() {
         initComponents();
-
         setLocationRelativeTo(null);
-
     }
 
     /**

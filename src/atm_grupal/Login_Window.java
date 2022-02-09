@@ -60,6 +60,7 @@ public class Login_Window extends javax.swing.JFrame {
         RegisterButton = new javax.swing.JButton();
         ExitButton = new javax.swing.JButton();
         jPasswordFieldContrasena = new javax.swing.JPasswordField();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -112,15 +113,19 @@ public class Login_Window extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Acerca De");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout MainPanelLayout = new javax.swing.GroupLayout(MainPanel);
         MainPanel.setLayout(MainPanelLayout);
         MainPanelLayout.setHorizontalGroup(
             MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainPanelLayout.createSequentialGroup()
                 .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, MainPanelLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Icono))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, MainPanelLayout.createSequentialGroup()
                         .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(MainPanelLayout.createSequentialGroup()
@@ -133,7 +138,7 @@ public class Login_Window extends javax.swing.JFrame {
                         .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(MainPanelLayout.createSequentialGroup()
                                 .addComponent(UserLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                                 .addComponent(jTextFieldUser, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(MainPanelLayout.createSequentialGroup()
                                 .addComponent(PasswordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -149,8 +154,15 @@ public class Login_Window extends javax.swing.JFrame {
                         .addGap(173, 173, 173))
                     .addComponent(LoginLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(MainPanelLayout.createSequentialGroup()
-                        .addGap(0, 763, Short.MAX_VALUE)
-                        .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap()
+                        .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, MainPanelLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(Icono))
+                            .addGroup(MainPanelLayout.createSequentialGroup()
+                                .addComponent(jButton1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
 
@@ -160,7 +172,9 @@ public class Login_Window extends javax.swing.JFrame {
             MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(LoginLabel)
                 .addGap(71, 71, 71)
@@ -216,7 +230,7 @@ public class Login_Window extends javax.swing.JFrame {
             //hacemos visible el formulario  
             registro.setVisible(true);
 
-            login.setVisible(false);
+            this.setVisible(false);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -242,12 +256,19 @@ public class Login_Window extends javax.swing.JFrame {
                 //hacemos visible el formulario  
                 home.setVisible(true);
 
-                login.setVisible(false);
+                this.setVisible(false);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         }
     }//GEN-LAST:event_LoginButtonActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        AcercaDe acercade = new AcercaDe();
+        acercade.setVisible(true);
+        
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -297,6 +318,7 @@ public class Login_Window extends javax.swing.JFrame {
     private javax.swing.JButton RegisterButton;
     private javax.swing.JLabel UserIcon;
     private javax.swing.JLabel UserLabel;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPasswordField jPasswordFieldContrasena;
     private javax.swing.JTextField jTextFieldUser;
     // End of variables declaration//GEN-END:variables
