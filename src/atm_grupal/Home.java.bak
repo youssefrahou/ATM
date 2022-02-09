@@ -33,12 +33,15 @@ public class Home extends javax.swing.JFrame {
     public Home(Cliente cliente) {
         this.nombre = cliente.getNombre();
         initComponents();
+<<<<<<< HEAD
         BienvenidoLabel.setText(BienvenidoLabel.getText() + ", " + cliente.getNombre());
         int balance = 0;
         jLabelBalance.setText(String.valueOf(balance));
+=======
         
-         setLocationRelativeTo(null);
+        setLocationRelativeTo(null);
         BienvenidoLabel.setText(BienvenidoLabel.getText() + ", " + nombre);
+>>>>>>> 36281e3b097f59e6b5e441eb9003750c0cfd7c6f
     }
 
     /**
