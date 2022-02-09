@@ -33,6 +33,8 @@ public class Home extends javax.swing.JFrame {
     public Home(String nombre) {
         this.nombre = nombre;
         initComponents();
+        
+        setLocationRelativeTo(null);
         BienvenidoLabel.setText(BienvenidoLabel.getText() + ", " + nombre);
     }
 
@@ -63,6 +65,7 @@ public class Home extends javax.swing.JFrame {
         Imagenmanos = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         MainPanel.setBackground(new java.awt.Color(255, 204, 204));
 

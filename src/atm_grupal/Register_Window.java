@@ -34,6 +34,8 @@ public class Register_Window extends javax.swing.JFrame {
      */
     public Register_Window() {
         initComponents();
+        
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -76,6 +78,7 @@ public class Register_Window extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         MainPanel.setBackground(new java.awt.Color(255, 204, 204));
 
@@ -339,7 +342,7 @@ public class Register_Window extends javax.swing.JFrame {
         login.setVisible(true);
 
         try {
-            register.setVisible(false);
+            this.setVisible(false);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
