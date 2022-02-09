@@ -30,10 +30,12 @@ public class Home extends javax.swing.JFrame {
     /**
      * Creates new form Register_Window
      */
-    public Home(String nombre) {
-        this.nombre = nombre;
+    public Home(Cliente cliente) {
+        this.nombre = cliente.getNombre();
         initComponents();
-        BienvenidoLabel.setText(BienvenidoLabel.getText() + ", " + nombre);
+        BienvenidoLabel.setText(BienvenidoLabel.getText() + ", " + cliente.getNombre());
+        int balance = 0;
+        jLabelBalance.setText(String.valueOf(balance));
     }
 
     /**
@@ -61,6 +63,7 @@ public class Home extends javax.swing.JFrame {
         imagenañadir = new javax.swing.JLabel();
         iconbalance = new javax.swing.JLabel();
         Imagenmanos = new javax.swing.JLabel();
+        jLabelBalance = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -127,6 +130,11 @@ public class Home extends javax.swing.JFrame {
         AñadirButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm_grupal/icons8-euro-30.png"))); // NOI18N
         AñadirButton.setText("Añadir");
         AñadirButton.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        AñadirButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AñadirButtonActionPerformed(evt);
+            }
+        });
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm_grupal/icons8-historia-de-la-actividad-30.png"))); // NOI18N
         jLabel1.setText("Historial de Transacciones");
@@ -141,6 +149,9 @@ public class Home extends javax.swing.JFrame {
 
         Imagenmanos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm_grupal/icons8-apreton-de-manos-corazon-30.png"))); // NOI18N
 
+        jLabelBalance.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jLabelBalance.setText("jLabel2");
+
         javax.swing.GroupLayout MainPanelLayout = new javax.swing.GroupLayout(MainPanel);
         MainPanel.setLayout(MainPanelLayout);
         MainPanelLayout.setHorizontalGroup(
@@ -150,7 +161,9 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(iconbalance)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(BalanceLabel)
-                .addGap(168, 168, 168))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelBalance)
+                .addGap(120, 120, 120))
             .addGroup(MainPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -203,7 +216,9 @@ public class Home extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainPanelLayout.createSequentialGroup()
                         .addComponent(iconbalance)
                         .addGap(8, 8, 8))
-                    .addComponent(BalanceLabel))
+                    .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(BalanceLabel)
+                        .addComponent(jLabelBalance)))
                 .addGap(25, 25, 25)
                 .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(ExtraerButton, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -240,6 +255,11 @@ public class Home extends javax.swing.JFrame {
     private void ExitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitButtonActionPerformed
         System.exit(0);
     }//GEN-LAST:event_ExitButtonActionPerformed
+
+    private void AñadirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AñadirButtonActionPerformed
+        // TODO add your handling code here:
+        //añadir dinero
+    }//GEN-LAST:event_AñadirButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -293,10 +313,11 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel imagenañadir;
     private javax.swing.JLabel imagenenviar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabelBalance;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 
-    private boolean registrar(String nombre, String dni, String fecha, String direccion, String cp, String email, String contrasena) {
+    /*private boolean registrar(String nombre, String dni, String fecha, String direccion, String cp, String email, String contrasena) {
 
         System.out.println("usuario ");
         //INSERT INTO `clientes` (`ID`, `nombre`, `apellidos`, `edad`, `dni`, `direccion`, `poblacion`, `usuario`, `contrasena`) VALUES (NULL, 'aaaaaa', 'aaaaaa', '23', 'aaaaaa', 'aaaaaa', 'aaaaaa', 'aaaaaa', 'aaaaaa');
@@ -324,5 +345,5 @@ public class Home extends javax.swing.JFrame {
         }
 
         return false;
-    }
+    }*/
 }

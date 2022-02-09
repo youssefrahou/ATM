@@ -8,6 +8,7 @@ package atm_grupal;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -29,6 +30,7 @@ public class Login_Window extends javax.swing.JFrame {
     Connection con;
     ResultSet rs;
     Statement st;
+    Cliente cliente;
 
     public Login_Window() {
         initComponents();
@@ -227,15 +229,15 @@ public class Login_Window extends javax.swing.JFrame {
         //aquí llamamos al método para iniciar sesión
         String usuario = jTextFieldUser.getText();
         String contrasenya = String.valueOf(jPasswordFieldContrasena.getPassword());
-        String nombre = iniciarSesion(usuario, contrasenya);
+        Cliente cliente = iniciarSesion(usuario, contrasenya);
 
-        if (nombre == "") {
+        if (cliente.getNombre() == "") {
             JOptionPane.showMessageDialog(null, "El usuario o la contraseña son incorrectos", "Error al iniciar sesión", JOptionPane.ERROR_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(null, "Hola " + nombre, "BIEN al iniciar sesión", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Hola " + cliente.getNombre(), "BIEN al iniciar sesión", JOptionPane.INFORMATION_MESSAGE);
             try {
                 // instanciamos un objeto de la clase Register_Window.java
-                Home home = new Home(nombre);
+                Home home = new Home(cliente);
 
                 //hacemos visible el formulario  
                 home.setVisible(true);
@@ -299,26 +301,25 @@ public class Login_Window extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldUser;
     // End of variables declaration//GEN-END:variables
 
-    private String iniciarSesion(String usuario, String contrasenya) {
+    private Cliente iniciarSesion(String usuario, String contrasenya) {
         System.out.println("usuario " + usuario + " contraseña: " + contrasenya);
         //aqui iniciamos sesión
+        cliente = new Cliente();
+
         try {
-            String nombre = "";
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/atm", "root", "");
             st = con.createStatement();
             String query = "SELECT * FROM clientes where usuario = \"" + usuario + "\" and contrasena = \"" + contrasenya + "\"";
             System.out.println(query);
             rs = st.executeQuery(query);
             while (rs.next()) {
-                nombre = rs.getString("nombre");
-                if (nombre != "") {
-                    return nombre;
-                }
+                cliente = new Cliente(rs.getInt("id"), rs.getString("nombre"), rs.getString("apellidos"), rs.getDate("f_nacimiento"), rs.getString("dni"), rs.getString("direccion"), rs.getString("poblacion"), rs.getString("usuario"), rs.getString("contrasena"), rs.getString("f_cr"));
             }
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return "";
+        return cliente;
     }
 
 }
