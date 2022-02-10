@@ -113,4 +113,12 @@ public class Cliente {
         this.f_cr = f_cr;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
 }

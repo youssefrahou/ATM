@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 
@@ -26,19 +27,23 @@ public class Home extends javax.swing.JFrame {
     ResultSet rs;
     Statement st;
     String nombre;
+    Cliente cliente;
 
     /**
      * Creates new form Register_Window
      */
     public Home(Cliente cliente) {
-        this.nombre = cliente.getNombre();
+
         initComponents();
+        this.nombre = cliente.getNombre();
+        this.cliente = cliente;
+
         BienvenidoLabel.setText(BienvenidoLabel.getText() + ", " + cliente.getNombre());
-        int balance = 0;
-        jLabelBalance.setText(String.valueOf(balance));
-        
-         setLocationRelativeTo(null);
-        BienvenidoLabel.setText(BienvenidoLabel.getText() + ", " + nombre);
+        int balance = getBalance(cliente.getId());
+
+        jLabelBalance.setText(String.valueOf(balance) + "€");
+
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -296,7 +301,7 @@ public class Home extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                //new Home().setVisible(true);
+                //new Home(null).setVisible(true);
             }
         });
     }
@@ -320,6 +325,24 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelBalance;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
+
+    public static int getBalance(int id) {
+        int balance = 0;
+        System.out.println(id);
+        try {
+
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/atm", "root", "");
+            Statement st = con.createStatement();
+            String query = "SELECT * FROM `cuentas_corrientes` where id_cliente = " + id + ";";
+            ResultSet rs = st.executeQuery(query);
+            while (rs.next()) {
+                balance = rs.getInt("balance");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return balance;
+    }
 
     /*private boolean registrar(String nombre, String dni, String fecha, String direccion, String cp, String email, String contrasena) {
 

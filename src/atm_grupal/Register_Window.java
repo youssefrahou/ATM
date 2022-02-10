@@ -34,7 +34,7 @@ public class Register_Window extends javax.swing.JFrame {
      */
     public Register_Window() {
         initComponents();
-        
+
         setLocationRelativeTo(null);
     }
 
@@ -324,7 +324,6 @@ public class Register_Window extends javax.swing.JFrame {
         String cp = jTextFieldCP.getText();
         String email = jTextFieldEmail.getText();
         String contrasena = String.valueOf(jPasswordFieldContrasenaRegistro.getPassword());
-//`ID`, `nombre`, `apellidos`, `f_nacimiento`, `dni`, `direccion`, `poblacion`, `usuario`, `contrasena`) VALUES (NU
         boolean registrado = registrar(nombre, apellidos, dni, fecha, direccion, cp, email, contrasena);
 
         if (registrado == false) {
@@ -436,9 +435,8 @@ public class Register_Window extends javax.swing.JFrame {
 
     private boolean registrar(String nombre, String apellidos, String dni, String fecha, String direccion, String cp, String email, String contrasena) {
 
-        //aqui nos registramos
         try {
-
+            //aqui nos registramos
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/atm", "root", "");
             PreparedStatement update = con.prepareStatement("INSERT INTO `clientes` (`nombre`, `apellidos`, `f_nacimiento`, `dni`, `direccion`, `poblacion`, `usuario`, `contrasena`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
             update.setString(1, nombre);
@@ -452,7 +450,7 @@ public class Register_Window extends javax.swing.JFrame {
 
             update.executeUpdate();
 
-            //con = DriverManager.getConnection("jdbc:mysql://localhost:3306/atm", "root", "");
+            //buscamos el último cliente creado (el de arriba)
             st = con.createStatement();
             String query = "SELECT * FROM `clientes` ORDER BY ID DESC LIMIT 1";
             System.out.println(query);
@@ -460,17 +458,16 @@ public class Register_Window extends javax.swing.JFrame {
             while (rs.next()) {
                 id_cliente = rs.getInt("id");
             }
-
+            System.out.println("ID " + id_cliente);
             String iban = "ES";
             Random r = new Random();
             for (int i = 0; i < 22; i++) {
                 int num = r.nextInt(10);
                 iban += String.valueOf(num);
             }
-            //System.out.println(iban);
 
+            //creamos la cuenta bancaria
             int cantidad = 0;
-           // id_cliente = 12;
             PreparedStatement balance = con.prepareStatement("INSERT INTO `cuentas_corrientes` (`id`, `iban`, `balance`, `id_cliente`) VALUES (NULL, ?, ?, ?);");
             balance.setString(1, iban);
             balance.setInt(2, cantidad);

@@ -31,6 +31,7 @@ public class Login_Window extends javax.swing.JFrame {
     ResultSet rs;
     Statement st;
     Cliente cliente;
+    static Home home;
 
     public Login_Window() {
         initComponents();
@@ -249,24 +250,26 @@ public class Login_Window extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "El usuario o la contraseña son incorrectos", "Error al iniciar sesión", JOptionPane.ERROR_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(null, "Hola " + cliente.getNombre(), "BIEN al iniciar sesión", JOptionPane.INFORMATION_MESSAGE);
+
+            // instanciamos un objeto de la clase Register_Window.java
+            Home home = new Home(cliente);
+
+            //hacemos visible el formulario  
+            home.setVisible(true);
+            this.setVisible(false);
             try {
-                // instanciamos un objeto de la clase Register_Window.java
-                Home home = new Home(cliente);
-
-                //hacemos visible el formulario  
-                home.setVisible(true);
-
                 this.setVisible(false);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
+
         }
     }//GEN-LAST:event_LoginButtonActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         AcercaDe acercade = new AcercaDe();
         acercade.setVisible(true);
-        
+
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
