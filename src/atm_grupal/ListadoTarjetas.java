@@ -8,8 +8,16 @@ package atm_grupal;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -19,12 +27,16 @@ import javax.swing.table.DefaultTableModel;
 public class ListadoTarjetas extends javax.swing.JFrame {
 
     static Cliente cliente;
+
     /**
      * Creates new form ListadoTarjetas
      */
     public ListadoTarjetas(Cliente cliente) {
         this.cliente = cliente;
         initComponents();
+
+        setLocationRelativeTo(null);
+
         mostrarTarjetas();
     }
 
@@ -43,8 +55,10 @@ public class ListadoTarjetas extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        ReturnButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         MainPanel.setBackground(new java.awt.Color(255, 204, 204));
 
@@ -88,23 +102,33 @@ public class ListadoTarjetas extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(jTable1);
 
+        ReturnButton.setBackground(new java.awt.Color(255, 204, 204));
+        ReturnButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm_grupal/Retroceder.png"))); // NOI18N
+        ReturnButton.setToolTipText("Salir");
+        ReturnButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        ReturnButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ReturnButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout MainPanelLayout = new javax.swing.GroupLayout(MainPanel);
         MainPanel.setLayout(MainPanelLayout);
         MainPanelLayout.setHorizontalGroup(
             MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MainPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(MainPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabelTusTarjetas, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButtonCrearTarjeta)
+                    .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(MainPanelLayout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jLabelTusTarjetas, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(ReturnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonCrearTarjeta)
-                .addContainerGap())
         );
         MainPanelLayout.setVerticalGroup(
             MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -112,10 +136,11 @@ public class ListadoTarjetas extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(jLabelTusTarjetas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jLabelTusTarjetas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ReturnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonCrearTarjeta)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -135,8 +160,62 @@ public class ListadoTarjetas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonCrearTarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCrearTarjetaActionPerformed
-        // TODO add your handling code here:
+        int min = 100;
+        int max = 999;
+
+        int random = (int) (Math.random() * (max - min + 1) + min);
+
+        LocalDate date = LocalDate.now();
+        date = date.plus(5, ChronoUnit.YEARS);
+
+        String tar = "";
+
+        Random r = new Random();
+        for (int i = 0; i < 4; i++) {
+            int num = r.nextInt(10);
+            tar += String.valueOf(num);
+        }
+
+        System.out.println(random);
+        System.out.println(date);
+        System.out.println(tar);
+
+        int id_cc;
+
+        id_cc = Home.get_id_cuenta_corriente_by_id_cliente(cliente.getId());
+
+        Connection con;
+
+        try {
+            String query = "INSERT INTO tarjetas (numero_tarjeta, fecha_caducidad, cvv,id_cuenta_corriente)"
+                    + "VALUES (" + tar + ",'" + date + "'," + random + ", " + id_cc + ")";
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/atm", "root", "");
+            PreparedStatement ps = con.prepareStatement(query);
+
+            ps.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+
+
     }//GEN-LAST:event_jButtonCrearTarjetaActionPerformed
+
+    private void ReturnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReturnButtonActionPerformed
+
+        // instanciamos un objeto de la clase Register_Window.java
+        Home home = new Home(cliente);
+
+        //hacemos visible el formulario
+        home.setVisible(true);
+
+        try {
+            this.setVisible(false);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_ReturnButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -175,6 +254,7 @@ public class ListadoTarjetas extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel MainPanel;
+    private javax.swing.JButton ReturnButton;
     private javax.swing.JButton jButtonCrearTarjeta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelTusTarjetas;
@@ -183,6 +263,10 @@ public class ListadoTarjetas extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void mostrarTarjetas() {
+
+        DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
+        dtm.setRowCount(0);
+
         try {
             int id;
             String num_tarjeta;
@@ -193,7 +277,7 @@ public class ListadoTarjetas extends javax.swing.JFrame {
             Statement st = con.createStatement();
             String query = "SELECT * FROM tarjetas JOIN cuentas_corrientes ON tarjetas.id_cuenta_corriente "
                     + "= cuentas_corrientes.id JOIN clientes ON cuentas_corrientes.id_cliente "
-                    + "= clientes.id WHERE clientes.id = "+cliente.getId();
+                    + "= clientes.id WHERE clientes.id = " + cliente.getId();
             // SELECT * FROM tarjetas JOIN cuentas_corrientes ON tarjetas.id_cuenta_corriente = cuentas_corrientes.id
             // JOIN clientes ON cuentas_corrientes.id_cliente = clientes.id WHERE clientes.id = 11;
             System.out.println(query);
@@ -204,11 +288,10 @@ public class ListadoTarjetas extends javax.swing.JFrame {
                 caducidad = rs.getDate("fecha_caducidad");
                 cvv = rs.getInt("cvv");
                 cuenta_corriente = rs.getString("id_cuenta_corriente");
-                
+
                 //System.out.println(id+" "+num_tarjeta+" "+caducidad+" "+cvv+" "+cuenta_corriente);
 //                jTextAreaLT.setText(id+" "+num_tarjeta+" "+caducidad+" "+cvv+" "+cuenta_corriente);
-                DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-                model.addRow(new Object[]{num_tarjeta, caducidad, cvv});
+                dtm.addRow(new Object[]{num_tarjeta, caducidad, cvv});
             }
 
         } catch (Exception e) {

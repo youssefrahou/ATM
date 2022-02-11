@@ -126,16 +126,19 @@ public class Home extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(TransaccionesTable);
 
+        EnviarButton.setBackground(new java.awt.Color(255, 204, 204));
         EnviarButton.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         EnviarButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm_grupal/icons8-euro-30.png"))); // NOI18N
         EnviarButton.setText("Enviar");
         EnviarButton.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
+        ExtraerButton.setBackground(new java.awt.Color(255, 204, 204));
         ExtraerButton.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         ExtraerButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm_grupal/icons8-euro-30.png"))); // NOI18N
         ExtraerButton.setText("Extraer");
         ExtraerButton.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
+        AñadirButton.setBackground(new java.awt.Color(255, 204, 204));
         AñadirButton.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         AñadirButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm_grupal/icons8-euro-30.png"))); // NOI18N
         AñadirButton.setText("Añadir");
@@ -162,6 +165,7 @@ public class Home extends javax.swing.JFrame {
         jLabelBalance.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabelBalance.setText("jLabel2");
 
+        jButtonAbrirTarjetas.setBackground(new java.awt.Color(255, 204, 204));
         jButtonAbrirTarjetas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm_grupal/icons8-card-30.png"))); // NOI18N
         jButtonAbrirTarjetas.setText("Tarjetas");
         jButtonAbrirTarjetas.addActionListener(new java.awt.event.ActionListener() {
@@ -269,7 +273,14 @@ public class Home extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void CerrarSesionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CerrarSesionButtonActionPerformed
-
+        cliente = null;
+        
+        Login_Window login = new Login_Window();
+        login.setVisible(true);
+        try {
+            this.setVisible(false);
+        } catch (Exception e) {
+        }
     }//GEN-LAST:event_CerrarSesionButtonActionPerformed
 
     private void ExitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitButtonActionPerformed
@@ -428,7 +439,7 @@ public class Home extends javax.swing.JFrame {
         }
     }
 
-    private int get_id_cuenta_corriente_by_id_cliente(int id) {
+    public static int get_id_cuenta_corriente_by_id_cliente(int id) {
         int id_cuenta_corriente = 0;
         
         try {
