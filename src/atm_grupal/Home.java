@@ -268,6 +268,20 @@ public class Home extends javax.swing.JFrame {
     private void AñadirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AñadirButtonActionPerformed
         // TODO add your handling code here:
         //añadir dinero
+        String cantidad = "";
+        cantidad = JOptionPane.showInputDialog("Dinero que desea ingresar");
+
+        try {
+            int id_cuenta_corriente = 5;
+            int id_cliente = cliente.getId();
+            get_id_cuenta_corriente_by_id_cliente(cliente.getId());
+            insertarDinero(cantidad, id_cuenta_corriente, id_cliente);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println(cantidad);
+
+
     }//GEN-LAST:event_AñadirButtonActionPerformed
 
     /**
@@ -373,4 +387,45 @@ public class Home extends javax.swing.JFrame {
 
         return false;
     }*/
+    private void insertarDinero(String cantidad, int id_cuenta_corriente, int id_cliente) {
+
+        double cant = Double.parseDouble(cantidad);
+        //int id_cuenta_corriente = 5;
+        //int id_cliente = 13;
+
+        try {
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/atm", "root", "");
+            PreparedStatement ps = con.prepareStatement("INSERT INTO `transacciones` (`id`, `tipo_transaccion`, `cantidad_transaccion`, `id_tarjeta`, `id_cuenta_corriente`, `id_cliente`) VALUES (NULL, '1', ?, NULL, ?, ?)");
+
+            ps.setDouble(1, cant);
+            ps.setInt(2, id_cuenta_corriente);
+            ps.setInt(3, id_cliente);
+
+            ps.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+    }
+
+    private int get_id_cuenta_corriente_by_id_cliente(int id) {
+        int id_cuenta_corriente = 0;
+        
+        try {
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/atm", "root", "");
+            Statement st = con.createStatement();
+            String query = "SELECT * FROM `cuentas_corrientes` where id_cliente = " + id + ";";
+            ResultSet rs = st.executeQuery(query);
+            while (rs.next()) {
+                id_cuenta_corriente = rs.getInt("balance");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return id_cuenta_corriente;
+
+    }
+
 }
