@@ -10,14 +10,11 @@ import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
-import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -63,11 +60,11 @@ public class ListadoTarjetas extends javax.swing.JFrame {
         MainPanel.setBackground(new java.awt.Color(255, 204, 204));
 
         jLabelTusTarjetas.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabelTusTarjetas.setText("Tus Tarjetas:");
+        jLabelTusTarjetas.setText("Tus Tarjetas");
 
         jButtonCrearTarjeta.setBackground(new java.awt.Color(255, 204, 204));
         jButtonCrearTarjeta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm_grupal/icons8-credit-card-30.png"))); // NOI18N
-        jButtonCrearTarjeta.setText("Añadir Tarjeta");
+        jButtonCrearTarjeta.setText("Pedir tarjeta nueva");
         jButtonCrearTarjeta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCrearTarjetaActionPerformed(evt);
@@ -123,11 +120,12 @@ public class ListadoTarjetas extends javax.swing.JFrame {
                     .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(MainPanelLayout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jLabelTusTarjetas, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ReturnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(ReturnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabelTusTarjetas, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(120, 120, 120))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         MainPanelLayout.setVerticalGroup(
@@ -137,8 +135,8 @@ public class ListadoTarjetas extends javax.swing.JFrame {
                 .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jLabelTusTarjetas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ReturnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                    .addComponent(ReturnButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonCrearTarjeta)
@@ -176,9 +174,9 @@ public class ListadoTarjetas extends javax.swing.JFrame {
             tar += String.valueOf(num);
         }
 
-        System.out.println(random);
-        System.out.println(date);
-        System.out.println(tar);
+//        System.out.println(random);
+//        System.out.println(date);
+//        System.out.println(tar);
 
         int id_cc;
 
@@ -193,11 +191,16 @@ public class ListadoTarjetas extends javax.swing.JFrame {
             PreparedStatement ps = con.prepareStatement(query);
 
             ps.executeUpdate();
+            
+            JOptionPane.showMessageDialog(null, "Tarjeta añadida con éxito");
 
         } catch (Exception e) {
             e.printStackTrace();
 
         }
+        
+        //refrescamos las tarjetas
+        mostrarTarjetas();
 
 
     }//GEN-LAST:event_jButtonCrearTarjetaActionPerformed
@@ -280,7 +283,7 @@ public class ListadoTarjetas extends javax.swing.JFrame {
                     + "= clientes.id WHERE clientes.id = " + cliente.getId();
             // SELECT * FROM tarjetas JOIN cuentas_corrientes ON tarjetas.id_cuenta_corriente = cuentas_corrientes.id
             // JOIN clientes ON cuentas_corrientes.id_cliente = clientes.id WHERE clientes.id = 11;
-            System.out.println(query);
+//            System.out.println(query);
             ResultSet rs = st.executeQuery(query);
             while (rs.next()) {
                 id = rs.getInt("id");
@@ -295,7 +298,7 @@ public class ListadoTarjetas extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+//            System.out.println(e.getMessage());
         }
     }
 }

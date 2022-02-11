@@ -11,7 +11,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -43,6 +45,8 @@ public class Home extends javax.swing.JFrame {
 
         jLabelBalance.setText(String.valueOf(balance) + "€");
 
+        mostrarTransacciones(getTransacciones(cliente.getId()));
+        
         setLocationRelativeTo(null);
     }
 
@@ -113,11 +117,11 @@ public class Home extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Tipo", "Cantidad", "IBAN Origen", "IBAN Destino"
+                "Tipo", "Cantidad", "SALDO"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.String.class, java.lang.Object.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -137,6 +141,11 @@ public class Home extends javax.swing.JFrame {
         ExtraerButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm_grupal/icons8-euro-30.png"))); // NOI18N
         ExtraerButton.setText("Extraer");
         ExtraerButton.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        ExtraerButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExtraerButtonActionPerformed(evt);
+            }
+        });
 
         AñadirButton.setBackground(new java.awt.Color(255, 204, 204));
         AñadirButton.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -274,7 +283,7 @@ public class Home extends javax.swing.JFrame {
 
     private void CerrarSesionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CerrarSesionButtonActionPerformed
         cliente = null;
-        
+
         Login_Window login = new Login_Window();
         login.setVisible(true);
         try {
@@ -294,24 +303,43 @@ public class Home extends javax.swing.JFrame {
         cantidad = JOptionPane.showInputDialog("Dinero que desea ingresar");
 
         try {
-            int id_cuenta_corriente = 5;
+            int id_cuenta_corriente = Home.get_id_cuenta_corriente_by_id_cliente(cliente.getId());
             int id_cliente = cliente.getId();
-            get_id_cuenta_corriente_by_id_cliente(cliente.getId());
-            insertarDinero(cantidad, id_cuenta_corriente, id_cliente);
+            insertarDinero(cantidad, id_cuenta_corriente, id_cliente, false);
         } catch (Exception e) {
             e.printStackTrace();
         }
         System.out.println(cantidad);
 
+        mostrarTransacciones(getTransacciones(cliente.getId()));
 
     }//GEN-LAST:event_AñadirButtonActionPerformed
 
     private void jButtonAbrirTarjetasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAbrirTarjetasActionPerformed
         ListadoTarjetas tarjetas = new ListadoTarjetas(cliente);
-        
+
         tarjetas.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButtonAbrirTarjetasActionPerformed
+
+    private void ExtraerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExtraerButtonActionPerformed
+        // TODO add your handling code here:
+        
+        //sacar dinero
+        String cantidad = "";
+        cantidad = JOptionPane.showInputDialog("Dinero que desea sacar");
+
+        try {
+            int id_cuenta_corriente = Home.get_id_cuenta_corriente_by_id_cliente(cliente.getId());
+            int id_cliente = cliente.getId();
+            insertarDinero(cantidad, id_cuenta_corriente, id_cliente, true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println(cantidad);
+
+        mostrarTransacciones(getTransacciones(cliente.getId()));
+    }//GEN-LAST:event_ExtraerButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -417,7 +445,7 @@ public class Home extends javax.swing.JFrame {
 
         return false;
     }*/
-    private void insertarDinero(String cantidad, int id_cuenta_corriente, int id_cliente) {
+    private void insertarDinero(String cantidad, int id_cuenta_corriente, int id_cliente, boolean ingresar_sacar) {
 
         double cant = Double.parseDouble(cantidad);
         //int id_cuenta_corriente = 5;
@@ -425,7 +453,7 @@ public class Home extends javax.swing.JFrame {
 
         try {
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/atm", "root", "");
-            PreparedStatement ps = con.prepareStatement("INSERT INTO `transacciones` (`id`, `tipo_transaccion`, `cantidad_transaccion`, `id_tarjeta`, `id_cuenta_corriente`, `id_cliente`) VALUES (NULL, '1', ?, NULL, ?, ?)");
+            PreparedStatement ps = con.prepareStatement("INSERT INTO `transacciones` (`id`, `tipo_transaccion`, `cantidad_transaccion`, `id_tarjeta`, `id_cuenta_corriente`, `id_cliente`) VALUES (NULL, " + ingresar_sacar + ", ?, NULL, ?, ?)");
 
             ps.setDouble(1, cant);
             ps.setInt(2, id_cuenta_corriente);
@@ -441,20 +469,69 @@ public class Home extends javax.swing.JFrame {
 
     public static int get_id_cuenta_corriente_by_id_cliente(int id) {
         int id_cuenta_corriente = 0;
-        
+
         try {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/atm", "root", "");
             Statement st = con.createStatement();
             String query = "SELECT * FROM `cuentas_corrientes` where id_cliente = " + id + ";";
             ResultSet rs = st.executeQuery(query);
             while (rs.next()) {
-                id_cuenta_corriente = rs.getInt("balance");
+                id_cuenta_corriente = rs.getInt("id");
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
         return id_cuenta_corriente;
+
+    }
+
+    private void mostrarTransacciones(ArrayList<Transaccion> trans) {
+
+        DefaultTableModel model = (DefaultTableModel) TransaccionesTable.getModel();
+
+        model.setRowCount(0);
+        
+        for (int i = 0; i < trans.size(); i++) {
+            String tipo = "";
+            if (trans.get(i).isTipo_transaccion()) {
+                tipo = "SACAR";
+            } else {
+                tipo = "INGRESAR";
+            }
+            model.addRow(new Object[]{tipo, trans.get(i).getCantidad_transaccion() + "€"});
+
+        }
+
+    }
+
+    private ArrayList<Transaccion> getTransacciones(int id) {
+
+        ArrayList<Transaccion> transacciones = new ArrayList<>();
+
+        try {
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/atm", "root", "");
+            Statement st = con.createStatement();
+            String query = "SELECT * FROM `transacciones` where id_cliente = " + id + " ORDER BY id DESC;";
+            ResultSet rs = st.executeQuery(query);
+            while (rs.next()) {
+
+                /*
+                    private int id;
+                    private boolean tipo_transaccion; //false = ingresar dinero, true = sacar dinero
+                    private double cantidad_transaccion;
+                    private int id_tarjeta;
+                    private int id_cuenta_corriente;
+                    private int id_cliente;
+                 */
+                Transaccion trans = new Transaccion(rs.getInt("id"), rs.getBoolean("tipo_transaccion"), rs.getDouble("cantidad_transaccion"), rs.getInt("id_tarjeta"), rs.getInt("id_cuenta_corriente"), rs.getInt("id_cliente"));
+                transacciones.add(trans);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return transacciones;
 
     }
 
