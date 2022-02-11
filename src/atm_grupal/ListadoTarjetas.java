@@ -10,6 +10,7 @@ import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -36,10 +37,10 @@ public class ListadoTarjetas extends javax.swing.JFrame {
 
         MainPanel = new javax.swing.JPanel();
         jLabelTusTarjetas = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextAreaLT = new javax.swing.JTextArea();
         jButtonCrearTarjeta = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -47,11 +48,6 @@ public class ListadoTarjetas extends javax.swing.JFrame {
 
         jLabelTusTarjetas.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabelTusTarjetas.setText("Tus Tarjetas:");
-
-        jTextAreaLT.setEditable(false);
-        jTextAreaLT.setColumns(20);
-        jTextAreaLT.setRows(5);
-        jScrollPane1.setViewportView(jTextAreaLT);
 
         jButtonCrearTarjeta.setBackground(new java.awt.Color(255, 204, 204));
         jButtonCrearTarjeta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm_grupal/icons8-credit-card-30.png"))); // NOI18N
@@ -64,24 +60,48 @@ public class ListadoTarjetas extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm_grupal/icons8-card-30.png"))); // NOI18N
 
+        jTable1.setAutoCreateRowSorter(true);
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nº Tarjeta", "Fecha Cad.", "CVV"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(jTable1);
+
         javax.swing.GroupLayout MainPanelLayout = new javax.swing.GroupLayout(MainPanel);
         MainPanel.setLayout(MainPanelLayout);
         MainPanelLayout.setHorizontalGroup(
             MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MainPanelLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainPanelLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButtonCrearTarjeta))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabelTusTarjetas, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(MainPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabelTusTarjetas, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonCrearTarjeta)
                 .addContainerGap())
         );
         MainPanelLayout.setVerticalGroup(
@@ -92,10 +112,10 @@ public class ListadoTarjetas extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jLabelTusTarjetas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonCrearTarjeta)
-                .addGap(4, 4, 4))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -156,8 +176,8 @@ public class ListadoTarjetas extends javax.swing.JFrame {
     private javax.swing.JButton jButtonCrearTarjeta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelTusTarjetas;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextAreaLT;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 
     private void mostrarTarjetas() {
@@ -175,12 +195,14 @@ public class ListadoTarjetas extends javax.swing.JFrame {
             while (rs.next()) {
                 id = rs.getInt("id");
                 num_tarjeta = rs.getString("numero_tarjeta");
-                caducidad = rs.getDate("fecha_coducidad");
+                caducidad = rs.getDate("fecha_caducidad");
                 cvv = rs.getInt("cvv");
                 cuenta_corriente = rs.getString("id_cuenta_corriente");
                 
                 //System.out.println(id+" "+num_tarjeta+" "+caducidad+" "+cvv+" "+cuenta_corriente);
-                jTextAreaLT.setText(id+" "+num_tarjeta+" "+caducidad+" "+cvv+" "+cuenta_corriente);
+//                jTextAreaLT.setText(id+" "+num_tarjeta+" "+caducidad+" "+cvv+" "+cuenta_corriente);
+                DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+                model.addRow(new Object[]{num_tarjeta, caducidad, cvv});
             }
 
         } catch (Exception e) {

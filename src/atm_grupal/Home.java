@@ -72,6 +72,7 @@ public class Home extends javax.swing.JFrame {
         iconbalance = new javax.swing.JLabel();
         Imagenmanos = new javax.swing.JLabel();
         jLabelBalance = new javax.swing.JLabel();
+        jButtonAbrirTarjetas = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -161,6 +162,14 @@ public class Home extends javax.swing.JFrame {
         jLabelBalance.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabelBalance.setText("jLabel2");
 
+        jButtonAbrirTarjetas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm_grupal/icons8-card-30.png"))); // NOI18N
+        jButtonAbrirTarjetas.setText("Tarjetas");
+        jButtonAbrirTarjetas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAbrirTarjetasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout MainPanelLayout = new javax.swing.GroupLayout(MainPanel);
         MainPanel.setLayout(MainPanelLayout);
         MainPanelLayout.setHorizontalGroup(
@@ -186,6 +195,10 @@ public class Home extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(MainPanelLayout.createSequentialGroup()
+                                .addComponent(BienvenidoLabel)
+                                .addGap(18, 18, 18)
+                                .addComponent(Imagenmanos))
+                            .addGroup(MainPanelLayout.createSequentialGroup()
                                 .addComponent(EnviarButton)
                                 .addGap(45, 45, 45)
                                 .addComponent(Imagenextraer)
@@ -194,12 +207,9 @@ public class Home extends javax.swing.JFrame {
                                 .addGap(43, 43, 43)
                                 .addComponent(imagenañadir)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(AñadirButton))
-                            .addGroup(MainPanelLayout.createSequentialGroup()
-                                .addComponent(BienvenidoLabel)
-                                .addGap(18, 18, 18)
-                                .addComponent(Imagenmanos)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(AñadirButton)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonAbrirTarjetas)))
                 .addContainerGap())
             .addGroup(MainPanelLayout.createSequentialGroup()
                 .addGap(353, 353, 353)
@@ -229,13 +239,14 @@ public class Home extends javax.swing.JFrame {
                         .addComponent(BalanceLabel)
                         .addComponent(jLabelBalance)))
                 .addGap(25, 25, 25)
-                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ExtraerButton, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(AñadirButton, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(Imagenextraer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(imagenañadir, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(imagenenviar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(EnviarButton))
+                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButtonAbrirTarjetas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ExtraerButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(AñadirButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Imagenextraer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(imagenañadir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(imagenenviar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(EnviarButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(30, 30, 30)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -269,6 +280,13 @@ public class Home extends javax.swing.JFrame {
         // TODO add your handling code here:
         //añadir dinero
     }//GEN-LAST:event_AñadirButtonActionPerformed
+
+    private void jButtonAbrirTarjetasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAbrirTarjetasActionPerformed
+        ListadoTarjetas tarjetas = new ListadoTarjetas();
+        
+        tarjetas.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButtonAbrirTarjetasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -321,6 +339,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel iconbalance;
     private javax.swing.JLabel imagenañadir;
     private javax.swing.JLabel imagenenviar;
+    private javax.swing.JButton jButtonAbrirTarjetas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelBalance;
     private javax.swing.JScrollPane jScrollPane1;
