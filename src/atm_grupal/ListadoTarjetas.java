@@ -5,6 +5,12 @@
  */
 package atm_grupal;
 
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
 /**
  *
  * @author Admin
@@ -16,6 +22,7 @@ public class ListadoTarjetas extends javax.swing.JFrame {
      */
     public ListadoTarjetas() {
         initComponents();
+        mostrarTarjetas();
     }
 
     /**
@@ -41,6 +48,7 @@ public class ListadoTarjetas extends javax.swing.JFrame {
         jLabelTusTarjetas.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabelTusTarjetas.setText("Tus Tarjetas:");
 
+        jTextAreaLT.setEditable(false);
         jTextAreaLT.setColumns(20);
         jTextAreaLT.setRows(5);
         jScrollPane1.setViewportView(jTextAreaLT);
@@ -48,6 +56,11 @@ public class ListadoTarjetas extends javax.swing.JFrame {
         jButtonCrearTarjeta.setBackground(new java.awt.Color(255, 204, 204));
         jButtonCrearTarjeta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm_grupal/icons8-credit-card-30.png"))); // NOI18N
         jButtonCrearTarjeta.setText("Añadir Tarjeta");
+        jButtonCrearTarjeta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCrearTarjetaActionPerformed(evt);
+            }
+        });
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm_grupal/icons8-card-30.png"))); // NOI18N
 
@@ -99,6 +112,10 @@ public class ListadoTarjetas extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButtonCrearTarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCrearTarjetaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCrearTarjetaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -142,4 +159,32 @@ public class ListadoTarjetas extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextAreaLT;
     // End of variables declaration//GEN-END:variables
+
+    private void mostrarTarjetas() {
+        try {
+            int id;
+            String num_tarjeta;
+            Date caducidad;
+            int cvv;
+            String cuenta_corriente;
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/atm", "root", "");
+            Statement st = con.createStatement();
+            String query = "select * from tarjetas";
+            System.out.println(query);
+            ResultSet rs = st.executeQuery(query);
+            while (rs.next()) {
+                id = rs.getInt("id");
+                num_tarjeta = rs.getString("numero_tarjeta");
+                caducidad = rs.getDate("fecha_coducidad");
+                cvv = rs.getInt("cvv");
+                cuenta_corriente = rs.getString("id_cuenta_corriente");
+                
+                //System.out.println(id+" "+num_tarjeta+" "+caducidad+" "+cvv+" "+cuenta_corriente);
+                jTextAreaLT.setText(id+" "+num_tarjeta+" "+caducidad+" "+cvv+" "+cuenta_corriente);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
