@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-02-2022 a las 12:52:28
+-- Tiempo de generación: 11-02-2022 a las 10:19:09
 -- Versión del servidor: 10.4.22-MariaDB
--- Versión de PHP: 7.4.27
+-- Versión de PHP: 8.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -111,7 +111,7 @@ INSERT INTO `cuentas_corrientes` (`id`, `iban`, `balance`, `id_cliente`) VALUES
 CREATE TABLE `tarjetas` (
   `id` int(11) NOT NULL,
   `numero_tarjeta` int(16) NOT NULL,
-  `fecha_coducidad` date NOT NULL,
+  `fecha_caducidad` date NOT NULL,
   `cvv` int(3) NOT NULL,
   `id_cuenta_corriente` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -128,7 +128,7 @@ CREATE TABLE `transacciones` (
   `cantidad_transaccion` double NOT NULL,
   `id_tarjeta` int(11) DEFAULT NULL,
   `id_cuenta_corriente` int(11) DEFAULT NULL,
-  `id_cliente` int(11) NOT NULL
+  `id_cliente` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -168,7 +168,8 @@ ALTER TABLE `tarjetas`
 ALTER TABLE `transacciones`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_transacciones_tarjetas1_idx` (`id_tarjeta`),
-  ADD KEY `fk_transacciones_cuentas_corrientes1_idx` (`id_cuenta_corriente`);
+  ADD KEY `fk_transacciones_cuentas_corrientes1_idx` (`id_cuenta_corriente`),
+  ADD KEY `fk_conexiones_clientes2_idx` (`id_cliente`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -212,13 +213,13 @@ ALTER TABLE `transacciones`
 -- Filtros para la tabla `conexiones`
 --
 ALTER TABLE `conexiones`
-  ADD CONSTRAINT `fk_conexiones_clientes1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_conexiones_clientes1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `cuentas_corrientes`
 --
 ALTER TABLE `cuentas_corrientes`
-  ADD CONSTRAINT `fk_cuentas_corrientes_clientes` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_cuentas_corrientes_clientes` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `tarjetas`
@@ -230,6 +231,7 @@ ALTER TABLE `tarjetas`
 -- Filtros para la tabla `transacciones`
 --
 ALTER TABLE `transacciones`
+  ADD CONSTRAINT `fk_conexiones_clientes2` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_transacciones_cuentas_corrientes1` FOREIGN KEY (`id_cuenta_corriente`) REFERENCES `cuentas_corrientes` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_transacciones_tarjetas1` FOREIGN KEY (`id_tarjeta`) REFERENCES `tarjetas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
