@@ -282,7 +282,7 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_AñadirButtonActionPerformed
 
     private void jButtonAbrirTarjetasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAbrirTarjetasActionPerformed
-        ListadoTarjetas tarjetas = new ListadoTarjetas();
+        ListadoTarjetas tarjetas = new ListadoTarjetas(cliente);
         
         tarjetas.setVisible(true);
         this.setVisible(false);

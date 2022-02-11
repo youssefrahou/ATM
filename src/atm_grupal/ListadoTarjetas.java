@@ -18,10 +18,12 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ListadoTarjetas extends javax.swing.JFrame {
 
+    static Cliente cliente;
     /**
      * Creates new form ListadoTarjetas
      */
-    public ListadoTarjetas() {
+    public ListadoTarjetas(Cliente cliente) {
+        this.cliente = cliente;
         initComponents();
         mostrarTarjetas();
     }
@@ -166,7 +168,7 @@ public class ListadoTarjetas extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ListadoTarjetas().setVisible(true);
+                new ListadoTarjetas(cliente).setVisible(true);
             }
         });
     }
@@ -189,7 +191,11 @@ public class ListadoTarjetas extends javax.swing.JFrame {
             String cuenta_corriente;
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/atm", "root", "");
             Statement st = con.createStatement();
-            String query = "select * from tarjetas";
+            String query = "SELECT * FROM tarjetas JOIN cuentas_corrientes ON tarjetas.id_cuenta_corriente "
+                    + "= cuentas_corrientes.id JOIN clientes ON cuentas_corrientes.id_cliente "
+                    + "= clientes.id WHERE clientes.id = "+cliente.getId();
+            // SELECT * FROM tarjetas JOIN cuentas_corrientes ON tarjetas.id_cuenta_corriente = cuentas_corrientes.id
+            // JOIN clientes ON cuentas_corrientes.id_cliente = clientes.id WHERE clientes.id = 11;
             System.out.println(query);
             ResultSet rs = st.executeQuery(query);
             while (rs.next()) {
