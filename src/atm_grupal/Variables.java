@@ -21,6 +21,7 @@ public class Variables {
     static Color secundario = Color.cyan;
     static Color terciario = Color.cyan;
     static String nombre = "";
+    static String frase = "";
 
     public static void getVariables() {
         File archivo = null;
@@ -30,15 +31,16 @@ public class Variables {
         try {
             // Apertura del fichero y creacion de BufferedReader para poder
             // hacer una lectura comoda (disponer del metodo readLine()).
-            archivo = new File(System.getProperty("user.dir") + "/src/atm_grupal/cliente.txt");
+            archivo = new File(System.getProperty("user.dir") + "/src/atm_grupal/cliente.ini");
             fr = new FileReader(archivo);
             br = new BufferedReader(fr);
             // Lectura del fichero
             String linea;
             while ((linea = br.readLine()) != null) {
                 linea = linea.replaceAll("cliente: ", "");
-                System.out.println(linea);
+                //System.out.println(linea);
                 cliente = linea;
+                System.out.println(cliente);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -59,31 +61,99 @@ public class Variables {
 
     public static void cargarVariables(String cliente) {
 
-        switch (cliente) {
+        /*switch (cliente) {
             case "bbva":
                 principal = Color.cyan;
                 secundario = Color.cyan;
                 terciario = Color.cyan;
                 nombre = "BBVA";
+                frase = "El banco de los BBVAS";
                 break;
             case "santander":
                 principal = Color.white;
                 secundario = Color.white;
                 terciario = Color.white;
                 nombre = "Santander";
+                frase = "El banco de los Santanderas";
+
                 break;
             case "ing":
                 principal = Color.orange;
                 secundario = Color.orange;
                 terciario = Color.orange;
+                frase = "El banco de los INGs";
                 nombre = "ING";
+                break;
+                
+            case "lacaixa":
+                principal = Color.blue;
+                secundario = Color.orange;
+                terciario = Color.orange;
+                frase = "Benvingut a La Caixa";
+                nombre = "Caixa Bank";
                 break;
             default:
                 principal = new java.awt.Color(255, 204, 204);
                 secundario = new java.awt.Color(255, 204, 204);
                 terciario = new java.awt.Color(255, 204, 204);
                 nombre = "PeponaBank";
+                frase = "El banco de las peponas";
+
                 break;
+        }*/
+        File archivo = null;
+        FileReader fr = null;
+        BufferedReader br = null;
+        boolean existe = false;
+
+        try {
+
+            String ruta = System.getProperty("user.dir") + "/src/atm_grupal/" + cliente + ".ini";
+            File f = new File(ruta);
+
+            if (!f.exists()
+                    || f.isDirectory()) {
+                ruta = System.getProperty("user.dir") + "/src/atm_grupal/default.ini";
+            }
+
+            archivo = new File(ruta);
+            fr = new FileReader(archivo);
+            br = new BufferedReader(fr);
+            // Lectura del fichero
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                //linea = linea.replaceAll("cliente: ", "");
+                //System.out.println(linea);
+                if (linea.contains(":")) {
+                    String[] variable = linea.split(":");
+                    System.out.println(variable[0] + " " + variable[1]);
+                    switch (variable[0]) {
+                        case "principal":
+                            Color col1 = new java.awt.Color(Integer.parseInt(variable[1]), Integer.parseInt(variable[2]), Integer.parseInt(variable[3]));
+                            principal = col1;
+                            break;
+                        case "secundario":
+                            Color col2 = new java.awt.Color(Integer.parseInt(variable[1]), Integer.parseInt(variable[2]), Integer.parseInt(variable[3]));
+                            secundario = col2;
+                            break;
+                        case "terciario":
+                            Color col3 = new java.awt.Color(Integer.parseInt(variable[1]), Integer.parseInt(variable[2]), Integer.parseInt(variable[3]));
+                            terciario = col3;
+                            break;
+                        case "nombre":
+                            nombre = variable[1];
+                            break;
+                        case "frase":
+                            frase = variable[1];
+                            break;
+                    }
+
+                }
+                //System.out.println(variable[0] + " " + variable[1]);
+                //cliente = linea;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }

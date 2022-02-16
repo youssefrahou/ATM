@@ -19,6 +19,7 @@ public class Loading_Window extends javax.swing.JFrame {
      * Creates new form Loading_Window
      */
     public Loading_Window() {
+        
         Variables.getVariables();
 
         initComponents();
@@ -33,6 +34,7 @@ public class Loading_Window extends javax.swing.JFrame {
 
         //Panel.setBackground(Variables.principal);
         //Panel.setOpaque(true);
+        
     }
 
     /**
@@ -48,6 +50,8 @@ public class Loading_Window extends javax.swing.JFrame {
         Carga = new javax.swing.JLabel();
         Logo = new javax.swing.JLabel();
         Progreso = new javax.swing.JProgressBar();
+        jLabelNombre = new javax.swing.JLabel();
+        jLabelFrase = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -60,10 +64,16 @@ public class Loading_Window extends javax.swing.JFrame {
         Carga.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm_grupal/Carg.gif"))); // NOI18N
 
         Logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm_grupal/Logo.png"))); // NOI18N
+        Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm_grupal/logo_icono.png"))); // NOI18N
 
         Progreso.setPreferredSize(new java.awt.Dimension(146, 20));
         Progreso.setStringPainted(true);
+
+        jLabelNombre.setFont(new java.awt.Font("Toledo Heavy", 0, 48)); // NOI18N
+        jLabelNombre.setText(Variables.nombre);
+
+        jLabelFrase.setFont(new java.awt.Font("Tempus Sans ITC", 0, 24)); // NOI18N
+        jLabelFrase.setText(Variables.frase);
 
         javax.swing.GroupLayout MainPanelLayout = new javax.swing.GroupLayout(MainPanel);
         MainPanel.setLayout(MainPanelLayout);
@@ -72,8 +82,14 @@ public class Loading_Window extends javax.swing.JFrame {
             .addGroup(MainPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Logo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Carga, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(Carga, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(MainPanelLayout.createSequentialGroup()
+                        .addComponent(Logo, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelNombre)
+                            .addComponent(jLabelFrase))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(MainPanelLayout.createSequentialGroup()
                 .addGap(125, 125, 125)
@@ -83,8 +99,15 @@ public class Loading_Window extends javax.swing.JFrame {
         MainPanelLayout.setVerticalGroup(
             MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MainPanelLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(Logo, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(MainPanelLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(Logo, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(MainPanelLayout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addComponent(jLabelNombre)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelFrase)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Carga, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -148,12 +171,15 @@ public class Loading_Window extends javax.swing.JFrame {
                 new Loading_Window().setVisible(true);
             }
         });
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Carga;
     private javax.swing.JLabel Logo;
     private javax.swing.JPanel MainPanel;
-    private javax.swing.JProgressBar Progreso;
+    public static javax.swing.JProgressBar Progreso;
+    private javax.swing.JLabel jLabelFrase;
+    private javax.swing.JLabel jLabelNombre;
     // End of variables declaration//GEN-END:variables
 }

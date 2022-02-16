@@ -245,23 +245,41 @@ public class Login_Window extends javax.swing.JFrame {
         //aquí llamamos al método para iniciar sesión
         String usuario = jTextFieldUser.getText();
         String contrasenya = String.valueOf(jPasswordFieldContrasena.getPassword());
-        Cliente cliente = iniciarSesion(usuario, contrasenya);
 
-        if (cliente.getNombre() == "") {
-            JOptionPane.showMessageDialog(null, "El usuario o la contraseña son incorrectos", "Error al iniciar sesión", JOptionPane.ERROR_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(null, "Hola " + cliente.getNombre(), "BIEN al iniciar sesión", JOptionPane.INFORMATION_MESSAGE);
+        System.out.println("usuario: " + usuario + " contraseña: " + contrasenya);
+        if (usuario.equals("admin") && contrasenya.equals("admin")) {
 
             // instanciamos un objeto de la clase Register_Window.java
-            Home home = new Home(cliente);
+            Opciones opciones = new Opciones();
 
             //hacemos visible el formulario  
-            home.setVisible(true);
+            opciones.setVisible(true);
             this.setVisible(false);
             try {
                 this.setVisible(false);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
+            }
+
+        } else {
+            Cliente cliente = iniciarSesion(usuario, contrasenya);
+
+            if (cliente.getNombre() == "") {
+                JOptionPane.showMessageDialog(null, "El usuario o la contraseña son incorrectos", "Error al iniciar sesión", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Hola " + cliente.getNombre(), "BIEN al iniciar sesión", JOptionPane.INFORMATION_MESSAGE);
+
+                // instanciamos un objeto de la clase Register_Window.java
+                Home home = new Home(cliente);
+
+                //hacemos visible el formulario  
+                home.setVisible(true);
+                this.setVisible(false);
+                try {
+                    this.setVisible(false);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
             }
 
         }
