@@ -68,7 +68,7 @@ public class Login_Window extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(800, 600));
         setResizable(false);
 
-        MainPanel.setBackground(new java.awt.Color(255, 204, 204));
+        MainPanel.setBackground(Variables.principal);
 
         Icono.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm_grupal/logo_icono.png"))); // NOI18N
 

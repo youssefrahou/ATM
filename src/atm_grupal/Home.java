@@ -45,6 +45,7 @@ public class Home extends javax.swing.JFrame {
 
         jLabelBalance.setText(String.valueOf(balance) + "€");
 
+        //mostramos transacciones
         mostrarTransacciones(getTransacciones(cliente.getId()));
         
         setLocationRelativeTo(null);
@@ -81,7 +82,7 @@ public class Home extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
-        MainPanel.setBackground(new java.awt.Color(255, 204, 204));
+        MainPanel.setBackground(Variables.principal);
 
         BalanceLabel.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         BalanceLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);

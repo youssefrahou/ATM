@@ -81,7 +81,7 @@ public class Register_Window extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
-        MainPanel.setBackground(new java.awt.Color(255, 204, 204));
+        MainPanel.setBackground(Variables.principal);
 
         RegisterLabel.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
         RegisterLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

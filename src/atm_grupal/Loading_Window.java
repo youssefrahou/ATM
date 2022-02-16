@@ -5,6 +5,8 @@
  */
 package atm_grupal;
 
+import java.awt.Color;
+import java.awt.Panel;
 import java.util.Random;
 
 /**
@@ -17,8 +19,20 @@ public class Loading_Window extends javax.swing.JFrame {
      * Creates new form Loading_Window
      */
     public Loading_Window() {
+        Variables.getVariables();
+
         initComponents();
         setLocationRelativeTo(null);
+        Logo.setForeground(Variables.principal);
+        Logo.setBackground(Variables.principal);
+        Logo.setOpaque(true);
+
+        Carga.setForeground(Variables.principal);
+        Carga.setBackground(Variables.principal);
+        Carga.setOpaque(true);
+
+        //Panel.setBackground(Variables.principal);
+        //Panel.setOpaque(true);
     }
 
     /**
@@ -40,7 +54,7 @@ public class Loading_Window extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(500, 350));
         setSize(new java.awt.Dimension(0, 0));
 
-        MainPanel.setBackground(new java.awt.Color(255, 204, 204));
+        MainPanel.setBackground(Variables.principal);
 
         Carga.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Carga.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm_grupal/Carg.gif"))); // NOI18N
