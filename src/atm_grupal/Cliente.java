@@ -121,4 +121,11 @@ public class Cliente {
         this.id = id;
     }
 
+    @Override
+    public String toString() {
+        return "Cliente{" + "id=" + id + ", nombre=" + nombre + ", apellidos=" + apellidos + ", f_nacimiento=" + f_nacimiento + ", dni=" + dni + ", direccion=" + direccion + ", poblacion=" + poblacion + ", usuario=" + usuario + ", contrasena=" + contrasena + ", f_cr=" + f_cr + '}';
+    }
+    
+    
+
 }

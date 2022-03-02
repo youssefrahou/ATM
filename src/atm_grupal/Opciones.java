@@ -7,6 +7,11 @@ package atm_grupal;
 
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import javax.swing.JOptionPane;
 
 /**
@@ -124,13 +129,26 @@ public class Opciones extends javax.swing.JFrame {
 
         Variables.getVariables();
 
+        Loading_Window load = new Loading_Window();
+        load.setVisible(true);
+        load.Progreso.setVisible(false);
+
         this.setVisible(false); // cierra el formulario 
-        String[] args = {""};
+//        String[] args = {""};
+//
+//        Login_Window login = new Login_Window();
+//        login.setVisible(true);
 
-        Login_Window login = new Login_Window();
-        login.setVisible(true);
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                load.setVisible(false);
+                Login_Window login = new Login_Window();
+                login.setVisible(true);
+            }
+        }, 4000);
 
-        
         //Login_Window login = new Login_Window();//llamos la ventana para iniciarla
         //login.setVisible(true); //Se hace visible
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -150,6 +168,11 @@ public class Opciones extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ReturnButtonActionPerformed
 
+    public static void executeTask() {
+        Login_Window VentanaLogin = new Login_Window();
+        VentanaLogin.setVisible(true); // enseña ventana
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -167,13 +190,17 @@ public class Opciones extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Opciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Opciones.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Opciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Opciones.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Opciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Opciones.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Opciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Opciones.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 

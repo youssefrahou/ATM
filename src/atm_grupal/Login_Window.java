@@ -247,11 +247,10 @@ public class Login_Window extends javax.swing.JFrame {
         String contrasenya = String.valueOf(jPasswordFieldContrasena.getPassword());
 
         System.out.println("usuario: " + usuario + " contraseña: " + contrasenya);
+        
         if (usuario.equals("admin") && contrasenya.equals("admin")) {
-
             // instanciamos un objeto de la clase Register_Window.java
             Opciones opciones = new Opciones();
-
             //hacemos visible el formulario  
             opciones.setVisible(true);
             this.setVisible(false);
@@ -260,11 +259,13 @@ public class Login_Window extends javax.swing.JFrame {
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
-
         } else {
             Cliente cliente = iniciarSesion(usuario, contrasenya);
+            System.out.println(cliente.toString());
 
-            if (cliente.getNombre() == "") {
+            if (usuario.equals("")) {
+                JOptionPane.showMessageDialog(null, "El campo usuario está vacío", "Error al iniciar sesión", JOptionPane.ERROR_MESSAGE);
+            } else if (cliente.getNombre() == null) {
                 JOptionPane.showMessageDialog(null, "El usuario o la contraseña son incorrectos", "Error al iniciar sesión", JOptionPane.ERROR_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(null, "Hola " + cliente.getNombre(), "BIEN al iniciar sesión", JOptionPane.INFORMATION_MESSAGE);
@@ -346,7 +347,7 @@ public class Login_Window extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private Cliente iniciarSesion(String usuario, String contrasenya) {
-        System.out.println("usuario " + usuario + " contraseña: " + contrasenya);
+//        System.out.println("usuario " + usuario + " contraseña: " + contrasenya);
         //aqui iniciamos sesión
         cliente = new Cliente();
 
