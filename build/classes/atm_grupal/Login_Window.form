@@ -95,7 +95,11 @@
                       <Component id="LoginLabel" alignment="0" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
+<<<<<<< Updated upstream
                           <Component id="jButton1" min="-2" pref="150" max="-2" attributes="0"/>
+=======
+                          <Component id="jButton1" min="-2" pref="115" max="-2" attributes="0"/>
+>>>>>>> Stashed changes
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="Icono" alignment="1" min="-2" max="-2" attributes="0"/>
