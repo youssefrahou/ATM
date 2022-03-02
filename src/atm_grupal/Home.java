@@ -417,35 +417,6 @@ public class Home extends javax.swing.JFrame {
         return balance;
     }
 
-    /*private boolean registrar(String nombre, String dni, String fecha, String direccion, String cp, String email, String contrasena) {
-
-        System.out.println("usuario ");
-        //INSERT INTO `clientes` (`ID`, `nombre`, `apellidos`, `edad`, `dni`, `direccion`, `poblacion`, `usuario`, `contrasena`) VALUES (NULL, 'aaaaaa', 'aaaaaa', '23', 'aaaaaa', 'aaaaaa', 'aaaaaa', 'aaaaaa', 'aaaaaa');
-
-        //aqui nos registramos
-        try {
-
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/atm", "root", "");
-
-            PreparedStatement update = con.prepareStatement("INSERT INTO `clientes` (`ID`, `nombre`, `apellidos`, `edad`, `dni`, `direccion`, `poblacion`, `usuario`, `contrasena`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?)");
-            update.setString(1, nombre);
-            update.setString(2, dni);
-            update.setString(3, fecha);
-            update.setString(4, direccion);
-            update.setString(5, cp);
-            update.setString(6, email);
-            update.setString(7, contrasena);
-            update.setString(8, contrasena);
-
-            update.executeUpdate();
-            return true;
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-
-        return false;
-    }*/
     private void insertarDinero(String cantidad, int id_cuenta_corriente, int id_cliente, boolean ingresar_sacar) {
 
         double cant = Double.parseDouble(cantidad);
