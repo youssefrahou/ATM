@@ -9,16 +9,27 @@ package atm_grupal;
  *
  * @author Youssef
  */
+<<<<<<< Updated upstream
 class Transaccion {
 
     private int id;
     private boolean tipo_transaccion; //false = ingresar dinero, true = sacar dinero
+=======
+public class Transaccion {
+
+    private int id;
+    private int tipo_transaccion;
+>>>>>>> Stashed changes
     private double cantidad_transaccion;
     private int id_tarjeta;
     private int id_cuenta_corriente;
     private int id_cliente;
 
+<<<<<<< Updated upstream
     public Transaccion(int id, boolean tipo_transaccion, double cantidad_transaccion, int id_tarjeta, int id_cuenta_corriente, int id_cliente) {
+=======
+    public Transaccion(int id, int tipo_transaccion, double cantidad_transaccion, int id_tarjeta, int id_cuenta_corriente, int id_cliente) {
+>>>>>>> Stashed changes
         this.id = id;
         this.tipo_transaccion = tipo_transaccion;
         this.cantidad_transaccion = cantidad_transaccion;
@@ -38,11 +49,19 @@ class Transaccion {
         this.id = id;
     }
 
+<<<<<<< Updated upstream
     public boolean isTipo_transaccion() {
         return tipo_transaccion;
     }
 
     public void setTipo_transaccion(boolean tipo_transaccion) {
+=======
+    public int getTipo_transaccion() {
+        return tipo_transaccion;
+    }
+
+    public void setTipo_transaccion(int tipo_transaccion) {
+>>>>>>> Stashed changes
         this.tipo_transaccion = tipo_transaccion;
     }
 
@@ -84,4 +103,8 @@ class Transaccion {
     }
     
     
+<<<<<<< Updated upstream
 }
+=======
+}
+>>>>>>> Stashed changes
